@@ -1,0 +1,74 @@
+{% load static %}
+<html>
+
+<head>
+    <link rel="stylesheet" href="{% static " css/style.css" %}">
+    <style>
+        body {
+            margin: 0px;
+            background-color: dimgray;
+        }
+
+        .header {
+            padding: 3px 45px 3px;
+            background-color: darkred;
+            color: white;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 10px;
+            border-bottom: solid lightgrey;
+
+        }
+
+        .loginblock {
+            display: table;
+            padding: 5px;
+            margin: auto;
+            background-color: rgb(43, 43, 43);
+            border-radius: 12px;
+            border: 2px solid gray;
+            font-family: 'Courier New', Courier, monospace;
+            color: white;
+            box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .blockcontainer {
+            display: flex;
+            padding-top: 200px;
+        }
+
+        .loginheader {
+            background-color: darkred;
+            border: thin solid lightgrey;
+            border-radius: 5px;
+            font-size: 20px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: center;
+        }
+
+        .errortext {
+            color: red;
+            font-style: bold;
+        }
+    </style>
+    <meta charset="utf-8">
+    <title>Login required</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Authenication system</h1>
+    </div>
+    <div class="blockcontainer">
+        <form class="loginblock" action="{% url 'login'%}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="redirect" value="{{ redir_success }}">
+            <h1 class="loginheader">Login</h1>
+            <p>Username:<input type="text" name="username"></p>
+            <p>Password:<input type="password" name="password"></p>
+            {%if error %} <p class="errortext">Login failed. Incorrect username or password!</p> {%endif%}
+            <p><input type="submit" value="Submit"></p>
+        </form>
+    </div>
+</body>
+
+</html>

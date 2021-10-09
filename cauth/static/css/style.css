@@ -1,0 +1,45 @@
+body {
+    margin: 0px;
+    background-color: dimgray;
+}
+
+.header {
+    padding: 3px 45px 3px;
+    background-color: darkred;
+    color:white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 10px;
+    border-bottom: solid lightgrey;
+
+}
+
+.loginblock {
+    display: table;
+    padding: 5px;
+    margin: auto;
+    background-color: rgb(43, 43, 43);
+    border-radius: 12px;
+    border:2px solid gray;
+    font-family: 'Courier New', Courier, monospace;
+    color:white;
+    box-shadow: 0 0 20px 10px rgba(0,0,0,0.5);
+}
+
+.blockcontainer {
+    display:flex;
+    padding-top: 200px;
+}
+
+.loginheader {
+    background-color: darkred;
+    border: thin solid lightgrey;
+    border-radius: 5px;
+    font-size:20px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+}
+
+.errortext {
+    color:red;
+    font-style: bold;
+}
