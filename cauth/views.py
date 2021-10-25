@@ -33,10 +33,11 @@ class AuthOnly():
             return HttpResponseRedirect(redir_url)
 
         return self.view(request)
-# TODO validate login
+# TODO validate login | done
 # TODO add registration
 
 def login(request):
+    MAXCREDLEN = 30
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -47,16 +48,16 @@ def login(request):
         except ObjectDoesNotExist:
             return HttpResponseRedirect(redir_url)
 
-        if not account.checkpass(password):
+        if len(username) > MAXCREDLEN or len(password) > MAXCREDLEN or not account.checkpass(password):
             return HttpResponseRedirect(redir_url)
         s = Session.objects.create()
         tokens = s.initialize()
         s.save()
         r = HttpResponseRedirect(redir_success)
         r.set_cookie('chi_auth_id', binascii.b2a_base64(
-            tokens['id'], newline=False).decode(), httponly=True, secure=True)
+            tokens['id'], newline=False).decode(), httponly=True, secure=True, max_age=24*3600)
         r.set_cookie('chi_auth_key', binascii.b2a_base64(
-            tokens['key'], newline=False).decode(), httponly=True, secure=True)
+            tokens['key'], newline=False).decode(), httponly=True, secure=True, max_age=24*3600)
         return r
     else:
         return HttpResponseForbidden()

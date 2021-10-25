@@ -52,6 +52,18 @@
     </style>
     <meta charset="utf-8">
     <title>Login required</title>
+    <script>
+        var maxlen = 30
+        function validate() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            if (username.length > maxlen || password.length > maxlen) {
+                document.getElementById('failtext').style.display = 'block'
+                return;
+            }
+            document.forms['loginform'].submit()
+        }
+    </script>
 </head>
 
 <body>
@@ -59,14 +71,16 @@
         <h1>Authenication system</h1>
     </div>
     <div class="blockcontainer">
-        <form class="loginblock" action="{% url 'login'%}" method="post">
+        <form id='loginform' class="loginblock" action="{% url 'login'%}" method="post">
             {% csrf_token %}
             <input type="hidden" name="redirect" value="{{ redir_success }}">
             <h1 class="loginheader">Login</h1>
-            <p>Username:<input type="text" name="username"></p>
-            <p>Password:<input type="password" name="password"></p>
+            <p>Username:<input type="text" name="username" id='username'></p>
+            <p>Password:<input type="password" name="password" id='password'></p>
             {%if error %} <p class="errortext">Login failed. Incorrect username or password!</p> {%endif%}
-            <p><input type="submit" value="Submit"></p>
+            <p class="errortext" style="display: none;" id="failtext">Incorrect credentials format</p>
+            <!--<p><input type="submit" value="Submit"></p>-->
+            <p><input type="button" value="Login" onclick="validate()"></p>
         </form>
     </div>
 </body>
